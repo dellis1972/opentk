@@ -21602,7 +21602,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.GetQueryObjecti64, GL.GetQueryObjectui64
+    /// Not used directly.
     /// </summary>
     public enum ArbTimerQuery : int
     {
@@ -23046,7 +23046,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.Ati.AlphaFragmentOp1, GL.Ati.AlphaFragmentOp2, GL.Ati.AlphaFragmentOp3, GL.Ati.ColorFragmentOp1, GL.Ati.ColorFragmentOp2, GL.Ati.ColorFragmentOp3, GL.Ati.PassTexCoor, GL.Ati.SampleMap
+    /// Used in GL.Ati.AlphaFragmentOp1, GL.Ati.AlphaFragmentOp2, GL.Ati.AlphaFragmentOp3, GL.Ati.ColorFragmentOp1, GL.Ati.ColorFragmentOp2, GL.Ati.ColorFragmentOp3, GL.Ati.PassTexCoord, GL.Ati.SampleMap
     /// </summary>
     public enum AtiFragmentShader : int
     {
@@ -29280,7 +29280,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.Ext.GetQueryObjecti64, GL.Ext.GetQueryObjectui64
+    /// Used in GL.Ext.GetQueryObject
     /// </summary>
     public enum ExtTimerQuery : int
     {
@@ -36611,7 +36611,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.NV.GetVideoi64, GL.NV.GetVideo, GL.NV.GetVideoui64, GL.NV.PresentFrameDualFill, GL.NV.PresentFrameKeye
+    /// Used in GL.NV.GetVideo, GL.NV.PresentFrameDualFill, GL.NV.PresentFrameKeye
     /// </summary>
     public enum NvPresentVideo : int
     {
@@ -36911,7 +36911,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.NV.GetBufferParameterui64, GL.NV.GetIntegerui64, GL.NV.GetNamedBufferParameterui64, GL.NV.IsBufferResident, GL.NV.MakeBufferNonResident, GL.NV.MakeBufferResident, GL.NV.MakeNamedBufferResident
+    /// Used in GL.NV.GetBufferParameter, GL.NV.GetInteger, GL.NV.GetNamedBufferParameter, GL.NV.IsBufferResident, GL.NV.MakeBufferNonResident, GL.NV.MakeBufferResident, GL.NV.MakeNamedBufferResident
     /// </summary>
     public enum NvShaderBufferLoad : int
     {
@@ -37767,7 +37767,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.NV.VDPAUGetSurface, GL.NV.VDPAURegisterOutputSurface, GL.NV.VDPAURegisterVideoSurface, GL.NV.VDPAUSurfaceAcces
+    /// Used in GL.NV.VDPAUGetSurface, GL.NV.VDPAURegisterOutputSurface, GL.NV.VDPAURegisterVideoSurface, GL.NV.VDPAUSurfaceAccess
     /// </summary>
     public enum NvVdpauInterop : int
     {
@@ -37828,7 +37828,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.NV.GetVertexAttribLi64, GL.NV.GetVertexAttribLui64, GL.NV.VertexAttribLFormat
+    /// Used in GL.NV.GetVertexAttrib, GL.NV.VertexAttribLFormat
     /// </summary>
     public enum NvVertexAttribInteger64bit : int
     {
@@ -37843,7 +37843,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.NV.BufferAddressRange, GL.NV.ColorFormat, GL.NV.FogCoordFormat, GL.NV.GetIntegerui64, GL.NV.IndexFormat, GL.NV.NormalFormat, GL.NV.SecondaryColorFormat, GL.NV.TexCoordFormat, GL.NV.VertexAttribFormat, GL.NV.VertexAttribIFormat, GL.NV.VertexFormat
+    /// Used in GL.NV.BufferAddressRange, GL.NV.ColorFormat, GL.NV.FogCoordFormat, GL.NV.GetInteger, GL.NV.IndexFormat, GL.NV.NormalFormat, GL.NV.SecondaryColorFormat, GL.NV.TexCoordFormat, GL.NV.VertexAttribFormat, GL.NV.VertexAttribIFormat, GL.NV.VertexFormat
     /// </summary>
     public enum NvVertexBufferUnifiedMemory : int
     {
@@ -44572,6 +44572,10 @@ namespace OpenTK.Graphics.OpenGL
         /// </summary>
         Blend = ((int)0x0BE2)        ,
         /// <summary>
+        /// Original was GL_REPLACE = 0x1E01
+        /// </summary>
+        Replace = ((int)0x1E01)        ,
+        /// <summary>
         /// Original was GL_MODULATE = 0x2100
         /// </summary>
         Modulate = ((int)0x2100)        ,
@@ -45177,10 +45181,6 @@ namespace OpenTK.Graphics.OpenGL
         /// Original was GL_TEXTURE_BORDER_COLOR = 0x1004
         /// </summary>
         TextureBorderColor = ((int)0x1004)        ,
-        /// <summary>
-        /// Original was GL_RED = 0x1903
-        /// </summary>
-        Red = ((int)0x1903)        ,
         /// <summary>
         /// Original was GL_TEXTURE_MAG_FILTER = 0x2800
         /// </summary>
@@ -51165,7 +51165,7 @@ namespace OpenTK.Graphics.OpenGL
     }
 
     /// <summary>
-    /// Used in GL.GetBufferParameteri64, GL.GetInteger64
+    /// Not used directly.
     /// </summary>
     public enum Version32 : int
     {

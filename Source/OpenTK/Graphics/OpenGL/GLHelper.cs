@@ -10,6 +10,9 @@
 
 using System;
 using System.Collections.Generic;
+#if !MINIMAL
+using System.Drawing;
+#endif
 using System.Text;
 using System.Runtime.InteropServices;
 using System.Reflection;
@@ -103,12 +106,12 @@ namespace OpenTK.Graphics.OpenGL
 
         #region public static void Color[34]() overloads
 
-        public static void Color3(System.Drawing.Color color)
+        public static void Color3(Color color)
         {
             GL.Color3(color.R, color.G, color.B);
         }
 
-        public static void Color4(System.Drawing.Color color)
+        public static void Color4(Color color)
         {
             GL.Color4(color.R, color.G, color.B, color.A);
         }
@@ -132,7 +135,7 @@ namespace OpenTK.Graphics.OpenGL
 
         #region public static void ClearColor() overloads
 
-        public static void ClearColor(System.Drawing.Color color)
+        public static void ClearColor(Color color)
         {
             GL.ClearColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
         }
@@ -146,7 +149,7 @@ namespace OpenTK.Graphics.OpenGL
 
         #region public static void BlendColor() overloads
 
-        public static void BlendColor(System.Drawing.Color color)
+        public static void BlendColor(Color color)
         {
             GL.BlendColor(color.R / 255.0f, color.G / 255.0f, color.B / 255.0f, color.A / 255.0f);
         }
@@ -720,32 +723,264 @@ namespace OpenTK.Graphics.OpenGL
 
         #region Rect
 
-        public static void Rect(System.Drawing.RectangleF rect)
+        public static void Rect(RectangleF rect)
         {
             GL.Rect(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
 
-        public static void Rect(System.Drawing.Rectangle rect)
-        {
-            GL.Rect(rect.Left, rect.Top, rect.Right, rect.Bottom);
-        }
-
-        [CLSCompliant(false)]
-        public static void Rect(ref System.Drawing.RectangleF rect)
+        public static void Rect(Rectangle rect)
         {
             GL.Rect(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
 
         [CLSCompliant(false)]
-        public static void Rect(ref System.Drawing.Rectangle rect)
+        public static void Rect(ref RectangleF rect)
+        {
+            GL.Rect(rect.Left, rect.Top, rect.Right, rect.Bottom);
+        }
+
+        [CLSCompliant(false)]
+        public static void Rect(ref Rectangle rect)
         {
             GL.Rect(rect.Left, rect.Top, rect.Right, rect.Bottom);
         }
 
         #endregion
 
-        #region public static int GenTexture()
+        #region GenBuffer
 
+        /// <summary>[requires: v1.5]
+        /// Generates a single buffer object name
+        /// </summary>
+        /// <returns>The generated buffer object name</returns>
+        public static int GenBuffer()
+        {
+            int id;
+            GenBuffers(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteBuffer
+
+        /// <summary>[requires: v1.5]
+        /// Deletes a single buffer object
+        /// </summary>
+        /// <param name="id">The buffer object to be deleted</param>
+        public static void DeleteBuffer(int id)
+        {
+            DeleteBuffers(1, ref id);
+        }
+
+        /// <summary>[requires: v1.5]
+        /// Deletes a single buffer object
+        /// </summary>
+        /// <param name="id">The buffer object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteBuffer(uint id)
+        {
+            DeleteBuffers(1, ref id);
+        }
+
+        #endregion
+
+        #region GenFramebuffer
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Generates a single framebuffer object name
+        /// </summary>
+        /// <returns>The generated framebuffer object name</returns>
+        public static int GenFramebuffer()
+        {
+            int id;
+            GenFramebuffers(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteFramebuffer
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Deletes a single framebuffer object
+        /// </summary>
+        /// <param name="id">The framebuffer object to be deleted</param>
+        public static void DeleteFramebuffer(int id)
+        {
+            DeleteFramebuffers(1, ref id);
+        }
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Deletes a single framebuffer object
+        /// </summary>
+        /// <param name="id">The framebuffer object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteFramebuffer(uint id)
+        {
+            DeleteFramebuffers(1, ref id);
+        }
+
+        #endregion
+
+        #region GenProgramPipeline
+
+        /// <summary>[requires: v4.1 and ARB_separate_shader_objects]
+        /// Generates a single single pipeline object name
+        /// </summary>
+        /// <returns>The generated single pipeline object name</returns>
+        public static int GenProgramPipeline()
+        {
+            int id;
+            GenProgramPipelines(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteProgramPipeline
+
+        /// <summary>[requires: v4.1 and ARB_separate_shader_objects]
+        /// Deletes a single program pipeline object
+        /// </summary>
+        /// <param name="id">The program pipeline object to be deleted</param>
+        public static void DeleteProgramPipeline(int id)
+        {
+            DeleteProgramPipelines(1, ref id);
+        }
+
+        /// <summary>[requires: v4.1 and ARB_separate_shader_objects]
+        /// Deletes a single program pipeline object
+        /// </summary>
+        /// <param name="id">The program pipeline object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteProgramPipeline(uint id)
+        {
+            DeleteProgramPipelines(1, ref id);
+        }
+
+        #endregion
+
+        #region GenQuery
+
+        /// <summary>[requires: v1.5]
+        /// Generates a single query object name
+        /// </summary>
+        /// <returns>The generated query object name</returns>
+        public static int GenQuery()
+        {
+            int id;
+            GenQueries(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteQuery
+
+        /// <summary>[requires: v1.5]
+        /// Deletes a single query object
+        /// </summary>
+        /// <param name="id">The query object to be deleted</param>
+        public static void DeleteQuery(int id)
+        {
+            DeleteQueries(1, ref id);
+        }
+
+        /// <summary>
+        /// Deletes a single query object
+        /// </summary>
+        /// <param name="id">The query object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteQuery(uint id)
+        {
+            DeleteQueries(1, ref id);
+        }
+
+        #endregion
+
+        #region GenRenderbuffer
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Generates a single renderbuffer object name
+        /// </summary>
+        /// <returns>The generated renderbuffer object name</returns>
+        public static int GenRenderbuffer()
+        {
+            int id;
+            GenRenderbuffers(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteRenderbuffer
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Deletes a single renderbuffer object
+        /// </summary>
+        /// <param name="id">The renderbuffer object to be deleted</param>
+        public static void DeleteRenderbuffer(int id)
+        {
+            DeleteRenderbuffers(1, ref id);
+        }
+
+        /// <summary>[requires: v3.0 and ARB_framebuffer_object]
+        /// Deletes a single renderbuffer object
+        /// </summary>
+        /// <param name="id">The renderbuffer object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteRenderbuffer(uint id)
+        {
+            DeleteRenderbuffers(1, ref id);
+        }
+
+        #endregion
+
+        #region GenSampler
+
+        /// <summary>
+        /// Generates a single sampler object name
+        /// </summary>
+        /// <returns>The generated sampler object name</returns>
+        public static int GenSampler()
+        {
+            int id;
+            GenSamplers(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteSampler
+
+        /// <summary>
+        /// Deletes a single sampler object
+        /// </summary>
+        /// <param name="id">The sampler object to be deleted</param>
+        public static void DeleteSampler(int id)
+        {
+            DeleteSamplers(1, ref id);
+        }
+
+        /// <summary>
+        /// Deletes a single sampler object
+        /// </summary>
+        /// <param name="id">The sampler object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteSampler(uint id)
+        {
+            DeleteSamplers(1, ref id);
+        }
+
+        #endregion
+
+        #region GenTexture
+
+        /// <summary>[requires: v1.1]
+        /// Generate a single texture name
+        /// </summary>
+        /// <returns>The generated texture name</returns>
         public static int GenTexture()
         {
             int id;
@@ -757,15 +992,99 @@ namespace OpenTK.Graphics.OpenGL
 
         #region DeleteTexture
 
+        /// <summary>[requires: v1.1]
+        /// Delete a single texture name
+        /// </summary>
+        /// <param name="id">The texture to be deleted</param>
         public static void DeleteTexture(int id)
         {
             DeleteTextures(1, ref id);
         }
-        
+
+        /// <summary>[requires: v1.1]
+        /// Delete a single texture name
+        /// </summary>
+        /// <param name="id">The texture to be deleted</param>
         [CLSCompliant(false)]
         public static void DeleteTexture(uint id)
         {
             DeleteTextures(1, ref id);
+        }
+
+        #endregion
+
+        #region GenTransformFeedback
+
+        /// <summary>[requires: v1.2 and ARB_transform_feedback2]
+        /// Generates a single transform feedback object name
+        /// </summary>
+        /// <returns>The generated transform feedback object name</returns>
+        public static int GenTransformFeedback()
+        {
+            int id;
+            GenTransformFeedback(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteTransformFeedback
+
+        /// <summary>[requires: v1.2 and ARB_transform_feedback2]
+        /// Deletes a single transform feedback object
+        /// </summary>
+        /// <param name="id">The transform feedback object to be deleted</param>
+        public static void DeleteTransformFeedback(int id)
+        {
+            DeleteTransformFeedback(1, ref id);
+        }
+
+        /// <summary>[requires: v1.2 and ARB_transform_feedback2]
+        /// Deletes a single transform feedback object
+        /// </summary>
+        /// <param name="id">The transform feedback object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteTransformFeedback(uint id)
+        {
+            DeleteTransformFeedback(1, ref id);
+        }
+
+        #endregion
+
+        #region GenVertexArray
+
+        /// <summary>[requires: v3.0 and ARB_vertex_array_object]
+        /// Generates a single vertex array object name
+        /// </summary>
+        /// <returns>The generated vertex array object name</returns>
+        public static int GenVertexArray()
+        {
+            int id;
+            GenVertexArrays(1, out id);
+            return id;
+        }
+
+        #endregion
+
+        #region DeleteVertexArray
+
+        /// <summary>[requires: v3.0 and ARB_vertex_array_object]
+        /// Deletes a single vertex array object
+        /// </summary>
+        /// <param name="id">The vertex array object to be deleted</param>
+        public static void DeleteVertexArray(int id)
+        {
+            DeleteVertexArrays(1, ref id);
+        }
+
+        /// <summary>[requires: v3.0 and ARB_vertex_array_object]
+        /// Deletes a single vertex array object
+        /// </summary>
+        /// <param name="id">The vertex array object to be deleted</param>
+        [CLSCompliant(false)]
+        public static void DeleteVertexArray(uint id)
+        {
+            DeleteVertexArrays(1, ref id);
         }
 
         #endregion
@@ -901,17 +1220,17 @@ namespace OpenTK.Graphics.OpenGL
 
         #region Viewport
 
-        public static void Viewport(System.Drawing.Size size)
+        public static void Viewport(Size size)
         {
             GL.Viewport(0, 0, size.Width, size.Height);
         }
 
-        public static void Viewport(System.Drawing.Point location, System.Drawing.Size size)
+        public static void Viewport(Point location, Size size)
         {
             GL.Viewport(location.X, location.Y, size.Width, size.Height);
         }
 
-        public static void Viewport(System.Drawing.Rectangle rectangle)
+        public static void Viewport(Rectangle rectangle)
         {
             GL.Viewport(rectangle.X, rectangle.Y, rectangle.Width, rectangle.Height);
         }
@@ -930,7 +1249,7 @@ namespace OpenTK.Graphics.OpenGL
 
         #region TexEnv
 
-        public static void TexEnv(TextureEnvTarget target, TextureEnvParameter pname, System.Drawing.Color color)
+        public static void TexEnv(TextureEnvTarget target, TextureEnvParameter pname, Color color)
         {
             Color4 c = new Color4(color.R, color.G, color.B, color.A);
             unsafe
