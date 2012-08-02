@@ -322,7 +322,11 @@ namespace OpenTK.Graphics
 
         internal delegate ContextHandle GetCurrentContextDelegate();
         internal static GetCurrentContextDelegate GetCurrentContext =
+#if RASPBERRYPI
+			Platform.Factory.Embedded.CreateGetCurrentGraphicsContext();
+#else
             Platform.Factory.Default.CreateGetCurrentGraphicsContext();
+#endif
 
         /// <summary>
         /// Gets the GraphicsContext that is current in the calling thread.

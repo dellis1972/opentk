@@ -33,7 +33,11 @@ namespace OpenTK.Graphics
         {
             lock (SyncRoot)
             {
+#if RASPBERRYPI
+				implementation = Platform.Factory.Embedded.CreateGraphicsMode();
+#else
                 implementation = Platform.Factory.Default.CreateGraphicsMode();
+#endif
             }
         }
 
