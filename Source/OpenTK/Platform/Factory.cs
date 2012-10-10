@@ -54,7 +54,11 @@ namespace OpenTK.Platform
             {
                 if (Configuration.RunningOnWindows) Embedded = new Egl.EglWinPlatformFactory();
                 else if (Configuration.RunningOnMacOS) Embedded = new Egl.EglMacPlatformFactory();
-                else if (Configuration.RunningOnX11) Embedded = new Egl.EglX11PlatformFactory();
+//#if RASPBERRYPI
+//                else if (Configuration.RunningOnX11) Embedded = new Egl.EglPiPlatformFactory();
+//#else
+                    else if (Configuration.RunningOnX11) Embedded = new Egl.EglX11PlatformFactory();
+//#endif
                 else Embedded = new UnsupportedPlatform();
             }
             else Embedded = new UnsupportedPlatform();

@@ -17,7 +17,11 @@ namespace OpenTK.Platform.X11
 {
     partial class Glx : BindingsBase
     {
+#if RASPBERRYPI
+        const string Library = "libGLxxxxx.so.1";
+#else
         const string Library = "libGL.so.1";
+#endif
         static readonly object sync_root = new object();
 
         // Disable BeforeFieldInit optimization.

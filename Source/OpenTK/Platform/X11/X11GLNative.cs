@@ -139,21 +139,22 @@ namespace OpenTK.Platform.X11
 
             XVisualInfo info = new XVisualInfo();
 
-            Debug.Indent();
-            
+            Debug.Indent();            
             using (new XLock(window.Display))
             {
                 if (!mode.Index.HasValue)
                     throw new GraphicsModeException("Invalid or unsupported GraphicsMode.");
-
                 info.VisualID = mode.Index.Value;
                 int dummy;
-                window.VisualInfo = (XVisualInfo)Marshal.PtrToStructure(
-                    Functions.XGetVisualInfo(window.Display, XVisualInfoMask.ID, ref info, out dummy), typeof(XVisualInfo));
+
+#if RASPBERRYPI
+                IntPtr ptr =  Functions.XGetVisualInfo(window.Display, XVisualInfoMask.No, ref info, out dummy);
+#else
+                IntPtr ptr =  Functions.XGetVisualInfo(window.Display, XVisualInfoMask.ID, ref info, out dummy);
+#endif
+                window.VisualInfo = (XVisualInfo)Marshal.PtrToStructure(ptr, typeof(XVisualInfo));
 
                 // Create a window on this display using the visual above
-                Debug.Write("Opening render window... ");
-
                 XSetWindowAttributes attributes = new XSetWindowAttributes();
                 attributes.background_pixel = IntPtr.Zero;
                 attributes.border_pixel = IntPtr.Zero;

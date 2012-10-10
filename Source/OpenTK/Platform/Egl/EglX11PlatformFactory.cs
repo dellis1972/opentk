@@ -35,17 +35,25 @@ namespace OpenTK.Platform.Egl
 {
     class EglX11PlatformFactory : X11Factory
     {
+
+        public override INativeWindow CreateNativeWindow(int x, int y, int width, int height, string title, GraphicsMode mode, GameWindowFlags options, DisplayDevice device)
+        {
+            return new X11GLNative(x, y, width, height, title, mode, options, device);
+        }
+
         public override IGraphicsContext CreateGLContext(GraphicsMode mode, IWindowInfo window, IGraphicsContext shareContext, bool directRendering, int major, int minor, GraphicsContextFlags flags)
         {
             X11WindowInfo x11_win = (X11WindowInfo)window;
-            EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(x11_win.Display));
+            //EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(x11_win.Display));
+            EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(new IntPtr(0)));
             return new EglContext(mode, egl_win, shareContext, major, minor, flags);
         }
 
         public override IGraphicsContext CreateGLContext(ContextHandle handle, IWindowInfo window, IGraphicsContext shareContext, bool directRendering, int major, int minor, GraphicsContextFlags flags)
         {
             X11WindowInfo x11_win = (X11WindowInfo)window;
-            EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(x11_win.Display));
+            //EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(x11_win.Display));
+            EglWindowInfo egl_win = new OpenTK.Platform.Egl.EglWindowInfo(x11_win.WindowHandle, Egl.GetDisplay(new IntPtr(0)));
             return new EglContext(handle, egl_win, shareContext, major, minor, flags);
         }
 
@@ -55,6 +63,11 @@ namespace OpenTK.Platform.Egl
             {
                 return new ContextHandle(Egl.GetCurrentContext());
             };
+        }
+
+        public override IGraphicsMode CreateGraphicsMode()
+        {
+            return new EglGraphicsMode();
         }
     }
 }
