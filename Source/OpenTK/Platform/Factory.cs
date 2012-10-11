@@ -63,7 +63,7 @@ namespace OpenTK.Platform
             }
             else Embedded = new UnsupportedPlatform();
 
-            if (Default is UnsupportedPlatform && !(Embedded is UnsupportedPlatform))
+            //if (Default is UnsupportedPlatform && !(Embedded is UnsupportedPlatform))
                 Default = Embedded;
         }
 
